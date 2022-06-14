@@ -1,12 +1,12 @@
 package Homework8;
 
-public class Cat implements Jumpable, Runable{
+public class Robot implements Jumpable, Runable {
 
     String name;
     int maxJumpHeight;
     int maxRunLenght;
 
-    public Cat(String name, int maxJumpHeight, int maxRunLenght) {
+    public Robot(String name, int maxJumpHeight, int maxRunLenght) {
         this.name = name;
         this.maxJumpHeight = maxJumpHeight;
         this.maxRunLenght = maxRunLenght;
