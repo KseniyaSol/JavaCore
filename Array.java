@@ -1,52 +1,47 @@
-package Homework9;
+package Homework11;
 
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-public class Array {
+public class Array <T>{
 
-    int sizeX;
-    int sizeY;
-    int needableSize = 4;
-    String[][] arr = new String[sizeX][sizeY];
+    public T[] arr;
 
-    public int getSizeX() {
-        return sizeX;
+    public Array(T[] arr) {
+        this.arr = arr;
     }
 
-    public int getSizeY() {
-        return sizeY;
-    }
-
-    void getSizeOfArray(){
-        System.out.println("Введите размер двумерного массива.");
-        Scanner scanner = new Scanner(System.in);
-        sizeX = scanner.nextInt();
-        sizeY = scanner.nextInt();
-    }
-
-    void initializeArray(){
-        String[][] array = new String[sizeX][sizeY];
-        System.out.println("Вводите элементы массива (цифры). Всего " + (sizeX * sizeY) + " элементов.");
-        Scanner scanner = new Scanner(System.in).useDelimiter("\\s");
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[0].length; j++) {
-                array[i][j] = scanner.next();
+    public void replaceElements(int numOfFirstElement, int numOfSecondElement){
+        try {
+            T temp;
+            System.out.println("Массив до изменения:");
+            for (int i = 0; i < arr.length; i++) {
+                System.out.println(arr[i]);
+            }
+            temp = arr[numOfFirstElement];
+            arr[numOfFirstElement] = arr[numOfSecondElement];
+            arr[numOfSecondElement] = temp;
+            System.out.println();
+            System.out.println("Массив после изменения:");
+            for (int i = 0; i < arr.length; i++) {
+                System.out.println(arr[i]);
             }
         }
-        arr = array;
-        scanner.close();
+        catch (ArrayIndexOutOfBoundsException e){
+            System.out.println();
+            System.out.println("Заданы некорректные индексы массива " + numOfFirstElement + " и " + numOfSecondElement + ". В массиве существуют индексы [0-" + (arr.length - 1) + "].");
+        }
+        catch (Exception e){
+            System.out.println();
+            System.out.println("Произошла неизвестная ошибка.");
+        }
     }
 
-    void calculateSumOfArray(String[][] arr) throws MyArraySizeException, MyArrayDataException {
-
-        if ((arr.length != 4) || (arr[0].length != 4)) throw new MyArraySizeException("Некорректный размер массива!\n", needableSize);
-        int sum = 0;
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr[0].length; j++) {
-                if (!(arr[i][j].matches("-?\\d+(\\.\\d+)?"))) throw new MyArrayDataException("Данные в массиве не являются числом!\n", i, j);
-                sum += Integer.valueOf(arr[i][j]);
-            }
+    public void replaceToArrayList(){
+        ArrayList<T> arrayList = new ArrayList<T>(Arrays.asList(arr));
+        System.out.println("Вывод нового массива типа ArrayList:");
+        for (int i = 0; i < arrayList.size(); i++) {
+            System.out.println(arrayList.get(i));
         }
-        System.out.printf("Сумма всех элементов массива равна: %d\n", sum);
     }
 }
