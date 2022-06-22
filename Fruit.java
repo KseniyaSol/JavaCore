@@ -1,6 +1,6 @@
 package Homework11;
 
-public class Fruit {
+public abstract class Fruit {
 
     private String type;
     private float weight;
