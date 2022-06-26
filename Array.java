@@ -1,47 +1,60 @@
-package Homework11;
+package Homework12;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+public class Array {
 
-public class Array <T>{
+    private static final int SIZE = 10000000;
+    private static final int HALF = SIZE / 2;
 
-    public T[] arr;
+    private float[] arr = new float[SIZE];
+    private float[] arr1 = new float[HALF];
+    private float[] arr2 = new float[HALF];
 
-    public Array(T[] arr) {
-        this.arr = arr;
+    public float[] getArr() {
+        return arr;
     }
 
-    public void replaceElements(int numOfFirstElement, int numOfSecondElement){
-        try {
-            T temp;
-            System.out.println("Массив до изменения:");
-            for (int i = 0; i < arr.length; i++) {
-                System.out.println(arr[i]);
-            }
-            temp = arr[numOfFirstElement];
-            arr[numOfFirstElement] = arr[numOfSecondElement];
-            arr[numOfSecondElement] = temp;
-            System.out.println();
-            System.out.println("Массив после изменения:");
-            for (int i = 0; i < arr.length; i++) {
-                System.out.println(arr[i]);
-            }
-        }
-        catch (ArrayIndexOutOfBoundsException e){
-            System.out.println();
-            System.out.println("Заданы некорректные индексы массива " + numOfFirstElement + " и " + numOfSecondElement + ". В массиве существуют индексы [0-" + (arr.length - 1) + "].");
-        }
-        catch (Exception e){
-            System.out.println();
-            System.out.println("Произошла неизвестная ошибка.");
+    public int getHALF() {
+        return HALF;
+    }
+
+    public float[] getArr1() {
+        return arr1;
+    }
+
+    public float[] getArr2() {
+        return arr2;
+    }
+
+    public Array() {
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = 1;
         }
     }
 
-    public void replaceToArrayList(){
-        ArrayList<T> arrayList = new ArrayList<T>(Arrays.asList(arr));
-        System.out.println("Вывод нового массива типа ArrayList:");
-        for (int i = 0; i < arrayList.size(); i++) {
-            System.out.println(arrayList.get(i));
+    /**
+     * Метод заполняет массив, вычисляя значения по формуле
+     * @param arr Входной массив типа float
+     */
+    void math(float[] arr, int start){
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = (float)(arr[i] * Math.sin(0.2f + start / 5) * Math.cos(0.2f + start / 5) * Math.cos(0.4f + start / 2));
+            start++;
         }
+    }
+
+    /**
+     * Метод делит массив на 2 половины
+     */
+    void initializeHalfs(){
+        System.arraycopy(arr, 0, arr1, 0, HALF);
+        System.arraycopy(arr, HALF, arr2, 0, HALF);
+    }
+
+    /**
+     * Метод соединяет 2 массива в 1
+     */
+    void construct(){
+        System.arraycopy(arr1, 0, arr, 0, HALF);
+        System.arraycopy(arr2, 0, arr, HALF, HALF);
     }
 }
