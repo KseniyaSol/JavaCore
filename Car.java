@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 public class Car implements Runnable {
 
     private static int CARS_COUNT;
-    private static String winner = null;
+    private static Boolean winner = false;
     private Race race;
     private int speed;
     private String name;
@@ -56,7 +56,9 @@ public class Car implements Runnable {
         for (int i = 0; i < race.getStages().size(); i++) {
             race.getStages().get(i).go(this);
         }
-        if (winner == null) System.out.println(this.name + " - WIN");
-        winner = this.name;
+        synchronized (winner){
+            if (winner == false) System.out.println(this.name + " - WIN");
+            winner = true;
+        }
     }
 }
